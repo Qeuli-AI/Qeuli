@@ -1,0 +1,10 @@
+{
+  "id": "stretch",
+  "name": "Stretch",
+  "description": "A neck and wrist stretch every 90 minutes while you work.",
+  "version": "1.0.0",
+  "reminders": [
+    { "id": "neck", "title": "Neck and shoulders", "message": "Drop your shoulders, slow circles, ten seconds each way.", "everyMinutes": 90, "startHour": 9, "endHour": 19 },
+    { "id": "wrists", "title": "Wrists", "message": "Open and close your hands, then stretch each wrist.", "everyMinutes": 120, "startHour": 9, "endHour": 19 }
+  ]
+}

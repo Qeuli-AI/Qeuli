@@ -1,0 +1,35 @@
+/* Memory. Every rule is scoped to #view-memory so features never collide.
+   The shelf, setup screen and game window are styled by the shared gamekit.css. */
+
+/* pair match */
+#view-memory .mm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: min(100%, 540px, max(260px, calc(100vh - 330px))); margin: 0 auto; }
+#view-memory .m-card { aspect-ratio: 1; display: grid; place-items: center; padding: 0; cursor: pointer; background: var(--ink); border: var(--bw) solid var(--ink); border-radius: var(--btn-r); box-shadow: var(--sh-sm); transition: transform .15s, background .2s; }
+#view-memory .m-card:hover:not(:disabled) { transform: translate(-1px, -1px); }
+#view-memory .m-card.up { background: var(--surface); animation: mm-flip .3s ease-out; }
+#view-memory .m-card.done { background: color-mix(in srgb, #8bd66b 35%, var(--surface)); }
+#view-memory .m-card:disabled { cursor: default; }
+#view-memory .m-card svg { width: 70%; height: 70%; }
+@keyframes mm-flip { from { transform: rotateY(90deg); } }
+
+/* chimp test */
+#view-memory .cm-board { display: grid; grid-template-columns: repeat(var(--cols), 1fr); grid-template-rows: repeat(var(--rows), 1fr); gap: 6px; width: min(100%, 700px, max(300px, calc((100vh - 300px) * var(--cols) / var(--rows)))); aspect-ratio: var(--cols) / var(--rows); margin: 0 auto; }
+#view-memory .cm-board[hidden], #view-memory .cm-card[hidden] { display: none; }
+#view-memory .cm-sq { display: grid; place-items: center; padding: 0; min-width: 0; cursor: pointer; font-family: var(--display); font-weight: var(--display-weight); font-size: clamp(16px, 3.2vw, 30px); color: #0b0b0b; background: var(--game, var(--accent)); border: var(--bw) solid var(--ink); border-radius: var(--btn-r); box-shadow: 2px 2px 0 var(--ink); transition: transform .1s; }
+:root[data-look='calm'] #view-memory .cm-sq { box-shadow: none; border-color: var(--line); }
+#view-memory .cm-sq:hover { transform: translate(-1px, -1px); }
+#view-memory .cm-sq:active { transform: translate(1px, 1px); }
+#view-memory .cm-sq.masked { background: var(--surface); color: transparent; }
+#view-memory .cm-card { display: grid; justify-items: center; gap: var(--s2); padding: var(--s6) var(--s4); text-align: center; border: var(--bw) solid var(--ink); border-radius: var(--card-r); background: var(--surface); animation: gk-pop .3s cubic-bezier(.3, 1.5, .5, 1); }
+#view-memory .cm-big { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); font-size: calc(96px * var(--display-scale)); line-height: 1; color: var(--game, var(--accent)); -webkit-text-stroke: 2px var(--ink); }
+#view-memory .cm-lab { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+#view-memory .cm-line { color: var(--muted); }
+
+/* sequence memory */
+#view-memory .sq-board { display: grid; grid-template-columns: repeat(var(--n), 1fr); gap: 10px; width: min(100%, 460px, max(240px, calc(100vh - 340px))); aspect-ratio: 1; margin: 0 auto; }
+#view-memory .sq-cell { min-width: 0; padding: 0; cursor: pointer; background: var(--surface); border: var(--bw) solid var(--ink); border-radius: var(--btn-r); box-shadow: var(--sh-sm); transition: background .08s, transform .08s, box-shadow .08s; }
+:root[data-look='calm'] #view-memory .sq-cell { border-color: var(--line); box-shadow: none; }
+#view-memory .sq-cell:disabled { cursor: default; }
+#view-memory .sq-cell:not(:disabled):hover { transform: translate(-1px, -1px); }
+#view-memory .sq-cell.lit { background: var(--game, #ffa463); transform: scale(.95); box-shadow: none; }
+#view-memory .sq-cell.bad { background: var(--wait); }
+#view-memory .sq-cell.hint { outline: 3px dashed var(--ink); outline-offset: -7px; }

@@ -1,0 +1,34 @@
+/* Desk workouts screen. Every rule is scoped to #view-move so features never collide. */
+#view-move .cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+#view-move .mv-stage { position: relative; display: grid; place-items: center; align-content: center; gap: var(--s3); min-height: 380px; padding: var(--s4); border: var(--bw) solid var(--edge); border-radius: var(--btn-r); background: var(--paper); text-align: center; }
+#view-move .mv-ring { width: 220px; height: 220px; }
+#view-move .mv-ring circle { fill: none; stroke-width: 6; }
+#view-move .mv-ring .track { stroke: var(--line); }
+#view-move .mv-ring .arc { stroke: var(--run); stroke-linecap: round; transition: stroke-dashoffset .25s linear; }
+#view-move .mv-stage.rest .arc { stroke: var(--wait); }
+#view-move .mv-stage.done .arc { stroke: var(--ok); }
+#view-move .mv-center { margin-top: -176px; margin-bottom: 36px; max-width: 180px; }
+#view-move .mv-read { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(58px * var(--display-scale)); line-height: 1; color: var(--run); }
+#view-move .mv-stage.idle .mv-read { color: var(--muted); }
+#view-move .mv-stage.done .mv-read { color: var(--ok); }
+#view-move .mv-name { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(24px * var(--display-scale)); line-height: 1.05; margin-top: var(--s1); }
+#view-move .mv-step { margin-top: var(--s1); color: var(--muted); font-size: 12px; }
+#view-move .mv-cue { margin: 0; max-width: 40ch; min-height: 3em; }
+#view-move .mv-up { color: var(--muted); font-size: 12px; }
+#view-move .mv-ctl { display: flex; gap: var(--s2); }
+#view-move .mv-routines { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: var(--s3); }
+#view-move .mv-card { display: grid; gap: var(--s1); justify-items: start; padding: var(--s3); text-align: left; cursor: pointer; background: var(--surface); color: var(--ink); border: var(--bw) solid var(--ink); border-radius: var(--card-r); box-shadow: var(--sh-sm); transition: transform .14s, box-shadow .14s, background .14s; }
+#view-move .mv-card:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); background: #ffa463; color: #0b0b0b; }
+:root[data-look='calm'] #view-move .mv-card { border-color: var(--line); }
+:root[data-look='calm'] #view-move .mv-card:hover:not(:disabled) { transform: translateY(-1px); box-shadow: none; }
+#view-move .mv-card:disabled { opacity: .45; cursor: default; }
+#view-move .mv-card b { font-weight: 500; font-size: 15px; }
+#view-move .mv-card small { color: inherit; opacity: .75; font-size: 12px; }
+#view-move .mv-meta { margin-top: var(--s1); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; opacity: .8; }
+#view-move .mv-big { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(clamp(44px, 7vw, 68px) * var(--display-scale)); line-height: 1; color: var(--run); }
+#view-move .mv-big small { font-family: var(--mono); font-style: normal; font-size: 14px; color: var(--muted); margin-left: var(--s2); }
+#view-move .mv-bars { position: relative; display: flex; align-items: flex-end; gap: 6px; height: 76px; border-bottom: 1.5px solid var(--line); }
+#view-move .bar { flex: 1; min-width: 3px; background: var(--run); border-radius: 3px 3px 0 0; }
+#view-move .bar.met { background: var(--ok); }
+#view-move .goalline { position: absolute; left: 0; right: 0; height: 0; border-top: 1.5px dashed var(--fg); opacity: .55; pointer-events: none; }
+#view-move .mv-barlabels { display: flex; justify-content: space-between; margin-top: var(--s1); color: var(--muted); font-size: 11px; }

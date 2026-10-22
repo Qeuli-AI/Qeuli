@@ -1,0 +1,8 @@
+{
+  "id": "typing",
+  "name": "Typing",
+  "description": "A word sprint against the clock, or whole passages of prose and code. Speed counts only the letters you got right.",
+  "version": "1.0.0",
+  "division": "games",
+  "defaultEnabled": true
+}

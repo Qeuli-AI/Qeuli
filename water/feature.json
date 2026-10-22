@@ -1,0 +1,14 @@
+{
+  "id": "water",
+  "name": "Water",
+  "description": "Daily goal, reminders every couple of hours, and a nudge when your agent starts a long run.",
+  "version": "1.0.0",
+  "division": "health",
+  "defaultEnabled": true,
+  "tray": [
+    { "label": "Log a glass of water", "method": "POST", "route": "drink" }
+  ],
+  "cli": [
+    { "name": "drink", "method": "POST", "route": "drink", "arg": "ml", "print": "{drunkMl} / {goalMl} ml today", "help": "log a glass of water (default: your glass size)" }
+  ]
+}

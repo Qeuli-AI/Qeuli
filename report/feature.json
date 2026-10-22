@@ -1,0 +1,8 @@
+{
+  "id": "report",
+  "name": "Waiting report",
+  "description": "How much of your day goes to waiting on agents, how it is trending, and what that time could have bought.",
+  "version": "1.0.0",
+  "division": "productivity",
+  "defaultEnabled": true
+}

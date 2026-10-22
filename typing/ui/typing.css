@@ -1,0 +1,24 @@
+/* Typing. Every rule is scoped to #view-typing so features never collide.
+   The shelf, setup screen and game window are styled by the shared gamekit.css. */
+
+/* word sprint */
+#view-typing .ty-word { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(clamp(48px, 9vw, 84px) * var(--display-scale)); line-height: 1; margin: var(--s3) 0; overflow-wrap: anywhere; }
+#view-typing .ty-next { color: var(--muted); margin-bottom: var(--s4); min-height: 1.6em; white-space: pre-wrap; }
+#view-typing .ty-input { font-size: 20px; max-width: 420px; }
+#view-typing .ty-result { display: flex; align-items: center; gap: var(--s4); flex-wrap: wrap; margin-top: var(--s4); }
+#view-typing .ty-result b { font-family: var(--display); font-weight: var(--display-weight); font-size: calc(44px * var(--display-scale)); color: var(--run); }
+
+/* passage */
+#view-typing .ps-bar { height: 8px; margin-bottom: var(--s3); border: var(--bw) solid var(--ink); border-radius: 999px; background: var(--surface); overflow: hidden; }
+:root[data-look='calm'] #view-typing .ps-bar { border-color: var(--line); }
+#view-typing .ps-bar i { display: block; height: 100%; width: 0; background: var(--game, var(--run)); transition: width .15s linear; }
+#view-typing .ps-stage { position: relative; }
+#view-typing .ps-text { position: relative; max-height: max(180px, calc(100vh - 380px)); overflow-y: auto; padding: var(--s3) var(--s4); border: var(--bw) solid var(--ink); border-radius: var(--btn-r); background: var(--surface); font-size: 18px; line-height: 1.75; white-space: pre-wrap; overflow-wrap: anywhere; }
+:root[data-look='calm'] #view-typing .ps-text { border-color: var(--line); }
+#view-typing .ps-text.code { font-size: 16px; line-height: 1.6; }
+#view-typing .ps-text span.todo { color: var(--muted); }
+#view-typing .ps-text span.ok { color: var(--ink); }
+#view-typing .ps-text span.bad { color: #fff; background: var(--wait); border-radius: 2px; }
+#view-typing .ps-text span.cur { box-shadow: inset 0 -3px 0 var(--game, var(--accent)); animation: ps-blink 1s steps(2, start) infinite; }
+@keyframes ps-blink { 50% { box-shadow: none; } }
+#view-typing .ps-input { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; margin: 0; opacity: 0; resize: none; overflow: hidden; cursor: text; border: 0; }

@@ -1,0 +1,8 @@
+{
+  "id": "fun",
+  "name": "Small delights",
+  "description": "A dev joke, a daily riddle with a streak, ask the hawk, and a coin and dice for the big decisions.",
+  "version": "1.0.0",
+  "division": "fun",
+  "defaultEnabled": true
+}

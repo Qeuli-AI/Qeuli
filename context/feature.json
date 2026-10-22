@@ -1,0 +1,8 @@
+{
+  "id": "context",
+  "name": "Context",
+  "description": "What your agent is doing right now, and a plain-English recap of its last run the moment you are back.",
+  "version": "1.0.0",
+  "division": "context",
+  "defaultEnabled": true
+}

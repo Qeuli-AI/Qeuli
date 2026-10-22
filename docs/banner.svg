@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-labelledby="t d">
+  <title id="t">Qeuli: make the wait worth it</title>
+  <desc id="d">Qeuli wordmark with a running-agent pill and eight coloured division stickers.</desc>
+  <defs>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#0b0b0b" opacity=".12"/>
+    </pattern>
+    <style>
+      .f { font-family: 'Arial Black', 'Segoe UI Black', Impact, 'Helvetica Neue', Arial, sans-serif; font-weight: 900; }
+      .b { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; }
+      @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
+      .live { animation: pulse 1.4s ease-in-out infinite; }
+      @keyframes fill { from { width: 0 } to { width: 120px } }
+      .bar { animation: fill 6s linear infinite; }
+      @media (prefers-reduced-motion: reduce) { .live, .bar { animation: none } .bar { width: 150px } }
+    </style>
+  </defs>
+
+  <rect width="1280" height="420" fill="#fff6e0"/>
+  <rect width="1280" height="420" fill="url(#dots)"/>
+
+  <!-- frame with hard shadow -->
+  <rect x="26" y="26" width="1236" height="384" rx="22" fill="#0b0b0b"/>
+  <rect x="18" y="18" width="1236" height="384" rx="22" fill="#fff6e0" stroke="#0b0b0b" stroke-width="4"/>
+  <rect x="18" y="18" width="1236" height="384" rx="22" fill="url(#dots)"/>
+
+  <!-- running pill -->
+  <g transform="translate(64 62)">
+    <rect x="5" y="5" width="338" height="48" rx="24" fill="#0b0b0b"/>
+    <rect width="338" height="48" rx="24" fill="#fff" stroke="#0b0b0b" stroke-width="3"/>
+    <circle class="live" cx="28" cy="24" r="8" fill="#ff5a4d" stroke="#0b0b0b" stroke-width="2"/>
+    <text class="b" x="50" y="31" font-size="19" font-weight="700" fill="#0b0b0b">agent running</text>
+    <rect x="196" y="17" width="124" height="14" rx="7" fill="#fff6e0" stroke="#0b0b0b" stroke-width="2"/>
+    <rect class="bar" x="198" y="19" width="0" height="10" rx="5" fill="#63c8c1"/>
+  </g>
+
+  <!-- wordmark -->
+  <text class="f" x="66" y="234" font-size="168" fill="#0b0b0b" letter-spacing="-6" transform="translate(7 7)">Qeuli</text>
+  <text class="f" x="66" y="234" font-size="168" fill="#ffd84d" stroke="#0b0b0b" stroke-width="5" stroke-linejoin="round" letter-spacing="-6">Qeuli</text>
+
+  <text class="f" x="72" y="286" font-size="34" fill="#0b0b0b" letter-spacing="-.5">Make the wait worth it.</text>
+  <text class="b" x="72" y="318" font-size="21" fill="#3a3a3a">A local wellbeing layer for people who work with AI coding agents.</text>
+
+  <!-- division stickers -->
+  <g class="b" font-size="18" font-weight="800" fill="#0b0b0b">
+    <g transform="translate(66 346) rotate(-2)"><rect x="4" y="4" width="132" height="40" rx="12" fill="#0b0b0b"/><rect width="132" height="40" rx="12" fill="#8bd66b" stroke="#0b0b0b" stroke-width="3"/><text x="66" y="26" text-anchor="middle">Health</text></g>
+    <g transform="translate(212 349) rotate(1.5)"><rect x="4" y="4" width="162" height="40" rx="12" fill="#0b0b0b"/><rect width="162" height="40" rx="12" fill="#63c8c1" stroke="#0b0b0b" stroke-width="3"/><text x="81" y="26" text-anchor="middle">Productivity</text></g>
+    <g transform="translate(386 346) rotate(-1.5)"><rect x="4" y="4" width="132" height="40" rx="12" fill="#0b0b0b"/><rect width="132" height="40" rx="12" fill="#7fb3ff" stroke="#0b0b0b" stroke-width="3"/><text x="66" y="26" text-anchor="middle">Context</text></g>
+    <g transform="translate(528 349) rotate(2)"><rect x="4" y="4" width="112" height="40" rx="12" fill="#0b0b0b"/><rect width="112" height="40" rx="12" fill="#b89cff" stroke="#0b0b0b" stroke-width="3"/><text x="56" y="26" text-anchor="middle">Music</text></g>
+    <g transform="translate(656 346) rotate(-2)"><rect x="4" y="4" width="112" height="40" rx="12" fill="#0b0b0b"/><rect width="112" height="40" rx="12" fill="#ffd84d" stroke="#0b0b0b" stroke-width="3"/><text x="56" y="26" text-anchor="middle">Games</text></g>
+    <g transform="translate(784 349) rotate(1.5)"><rect x="4" y="4" width="92" height="40" rx="12" fill="#0b0b0b"/><rect width="92" height="40" rx="12" fill="#ff9ec4" stroke="#0b0b0b" stroke-width="3"/><text x="46" y="26" text-anchor="middle">Fun</text></g>
+    <g transform="translate(892 346) rotate(-1.5)"><rect x="4" y="4" width="130" height="40" rx="12" fill="#0b0b0b"/><rect width="130" height="40" rx="12" fill="#ffa463" stroke="#0b0b0b" stroke-width="3"/><text x="65" y="26" text-anchor="middle">Activity</text></g>
+    <g transform="translate(1038 349) rotate(2)"><rect x="4" y="4" width="92" height="40" rx="12" fill="#0b0b0b"/><rect width="92" height="40" rx="12" fill="#5ed6e8" stroke="#0b0b0b" stroke-width="3"/><text x="46" y="26" text-anchor="middle">Web</text></g>
+  </g>
+
+  <!-- mock window on the right -->
+  <g transform="translate(790 70) rotate(2.5)">
+    <rect x="9" y="9" width="400" height="236" rx="16" fill="#0b0b0b"/>
+    <rect width="400" height="236" rx="16" fill="#fff" stroke="#0b0b0b" stroke-width="4"/>
+    <path d="M0 40h400" stroke="#0b0b0b" stroke-width="4"/>
+    <circle cx="26" cy="20" r="6" fill="#ff5a4d" stroke="#0b0b0b" stroke-width="2"/>
+    <circle cx="48" cy="20" r="6" fill="#ffd84d" stroke="#0b0b0b" stroke-width="2"/>
+    <circle cx="70" cy="20" r="6" fill="#8bd66b" stroke="#0b0b0b" stroke-width="2"/>
+    <text class="b" x="200" y="26" text-anchor="middle" font-size="14" font-weight="700" fill="#0b0b0b">Memory · Chimp test</text>
+    <!-- chimp tiles -->
+    <g class="f" font-size="30" text-anchor="middle" fill="#0b0b0b">
+      <g transform="translate(36 66)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#ffd84d" stroke="#0b0b0b" stroke-width="3"/><text x="32" y="43">1</text></g>
+      <g transform="translate(118 66)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#ffd84d" stroke="#0b0b0b" stroke-width="3"/><text x="32" y="43">2</text></g>
+      <g transform="translate(200 66)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#fff" stroke="#0b0b0b" stroke-width="3"/></g>
+      <g transform="translate(282 66)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#fff" stroke="#0b0b0b" stroke-width="3"/></g>
+      <g transform="translate(77 148)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#fff" stroke="#0b0b0b" stroke-width="3"/></g>
+      <g transform="translate(159 148)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#fff" stroke="#0b0b0b" stroke-width="3"/></g>
+      <g transform="translate(241 148)"><rect x="3" y="3" width="64" height="64" rx="10" fill="#0b0b0b"/><rect width="64" height="64" rx="10" fill="#fff" stroke="#0b0b0b" stroke-width="3"/></g>
+    </g>
+  </g>
+</svg>

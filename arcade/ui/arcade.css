@@ -1,0 +1,47 @@
+/* Arcade: the retro games. Every rule is scoped to #view-arcade so features never collide.
+   The shelf, setup screen and game window are styled by the shared gamekit.css. */
+
+/* snake */
+#view-arcade .ar-canvas { display: block; width: min(100%, 560px, max(260px, calc(100vh - 250px))); aspect-ratio: 1; margin: 0 auto; border: var(--bw) solid var(--ink); border-radius: var(--btn-r); background: var(--surface); outline: none; }
+
+/* 2048 */
+#view-arcade .ar-2048 { display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); gap: 8px; width: min(100%, 540px, max(260px, calc(100vh - 310px))); aspect-ratio: 1; margin: 0 auto; padding: 8px; border: var(--bw) solid var(--ink); border-radius: var(--btn-r); background: color-mix(in srgb, var(--ink) 12%, var(--surface)); touch-action: none; outline: none; }
+#view-arcade .ar-2048[data-n='5'] { gap: 6px; }
+#view-arcade .ar-2048 .t { display: grid; place-items: center; border-radius: 6px; background: color-mix(in srgb, var(--ink) 8%, transparent); font-family: var(--display); font-weight: var(--display-weight); font-size: calc(30px * var(--display-scale)); color: #0b0b0b; transition: background .12s; animation: ar-tile .15s ease-out; }
+#view-arcade .ar-2048[data-n='5'] .t { font-size: calc(22px * var(--display-scale)); }
+@keyframes ar-tile { from { transform: scale(.85); } }
+#view-arcade .ar-2048 .t[data-v='0'] { animation: none; }
+#view-arcade .ar-2048 .t[data-v='2'] { background: #ffe9a8; }
+#view-arcade .ar-2048 .t[data-v='4'] { background: #ffd84d; }
+#view-arcade .ar-2048 .t[data-v='8'] { background: #ffa463; }
+#view-arcade .ar-2048 .t[data-v='16'] { background: #ff9ec4; }
+#view-arcade .ar-2048 .t[data-v='32'] { background: #b89cff; }
+#view-arcade .ar-2048 .t[data-v='64'] { background: #7fb3ff; }
+#view-arcade .ar-2048 .t[data-v='128'] { background: #5ed6e8; }
+#view-arcade .ar-2048 .t[data-v='256'] { background: #63c8c1; }
+#view-arcade .ar-2048 .t[data-v='512'] { background: #8bd66b; }
+#view-arcade .ar-2048 .t[data-v='1024'] { background: #f4f4ee; }
+#view-arcade .ar-2048 .t[data-v='2048'], #view-arcade .ar-2048 .t[data-v='4096'] { background: #0b0b0b; color: #fff; }
+
+/* 2048 tile palettes (cosmetic) */
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v] { background: color-mix(in srgb, var(--ink) 8%, transparent); color: var(--ink); }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='2'] { background: #ecece6; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='4'] { background: #d9d9d1; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='8'] { background: #bdbdb4; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='16'] { background: #9c9c93; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='32'] { background: #7a7a72; color: #fff; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='64'] { background: #55554f; color: #fff; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='128'] { background: #3a3a36; color: #fff; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='256'] { background: #25251f; color: #fff; }
+#view-arcade .ar-2048[data-pal='mono'] .t[data-v='512'], #view-arcade .ar-2048[data-pal='mono'] .t[data-v='1024'], #view-arcade .ar-2048[data-pal='mono'] .t[data-v='2048'], #view-arcade .ar-2048[data-pal='mono'] .t[data-v='4096'] { background: #0b0b0b; color: #ffd84d; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='2'] { background: #ffe3c4; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='4'] { background: #ffc98a; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='8'] { background: #ffa05a; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='16'] { background: #ff7d4d; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='32'] { background: #ff5c5c; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='64'] { background: #e8457a; color: #fff; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='128'] { background: #c43c94; color: #fff; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='256'] { background: #9a3fb0; color: #fff; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='512'] { background: #6d3fc0; color: #fff; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='1024'] { background: #3f3fc0; color: #fff; }
+#view-arcade .ar-2048[data-pal='sunset'] .t[data-v='2048'], #view-arcade .ar-2048[data-pal='sunset'] .t[data-v='4096'] { background: #0b0b0b; color: #ffd84d; }

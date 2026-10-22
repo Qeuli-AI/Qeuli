@@ -1,0 +1,15 @@
+/* Parking lot screen. Every rule is scoped to #view-parking so features never collide. */
+#view-parking .pk-banner { margin-bottom: var(--s4); padding: var(--s3) var(--s4); background: var(--accent); color: #0b0b0b; border: var(--bw) solid var(--ink); border-radius: var(--card-r); box-shadow: var(--sh-sm); animation: pk-in .3s ease-out; }
+@keyframes pk-in { from { opacity: 0; transform: translateY(-6px); } }
+#view-parking .pk-form { display: grid; gap: var(--s3); }
+#view-parking .pk-actions { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
+#view-parking .pk-spacer { flex: 1; }
+#view-parking .pk-hint { color: var(--muted); font-size: 12px; }
+#view-parking .pk-cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+#view-parking .pk-item { padding: var(--s3) 0; border-bottom: 1px solid var(--line); animation: pk-in .25s ease-out; }
+#view-parking .pk-item:last-child { border-bottom: 0; }
+#view-parking .pk-item p { margin: 0 0 var(--s2); white-space: pre-wrap; overflow-wrap: anywhere; max-height: 9em; overflow-y: auto; }
+#view-parking .pk-item.done p { text-decoration: line-through; opacity: .5; }
+#view-parking .pk-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); flex-wrap: wrap; }
+#view-parking .pk-btns { display: flex; gap: var(--s1); }
+#view-parking .pk-btns .btn { padding: 3px 10px; font-size: 12px; }

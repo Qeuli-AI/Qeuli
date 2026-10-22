@@ -1,0 +1,8 @@
+{
+  "id": "arcade",
+  "name": "Arcade",
+  "description": "The retro classics: Snake and 2048. Every game has options, and bests are kept per setting.",
+  "version": "1.0.0",
+  "division": "games",
+  "defaultEnabled": true
+}

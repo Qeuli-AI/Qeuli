@@ -1,0 +1,11 @@
+{
+  "id": "parking",
+  "name": "Parking lot",
+  "description": "Park ideas, draft your next prompt, and jot to-dos while your agent works, so no thought is lost to a wait.",
+  "version": "1.0.0",
+  "division": "productivity",
+  "defaultEnabled": true,
+  "cli": [
+    { "name": "park", "method": "POST", "route": "add", "arg": "text", "print": "Parked. {open} open.", "help": "park an idea: qeuli park \"look into caching\"" }
+  ]
+}

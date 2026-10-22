@@ -1,0 +1,16 @@
+/* Waiting report screen. Every rule is scoped to #view-report so features never collide. */
+#view-report .rp-insight { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); letter-spacing: var(--display-ls); font-size: calc(clamp(30px, 4.5vw, 52px) * var(--display-scale)); line-height: 1.05; margin: 0 0 var(--s5); max-width: 28ch; }
+#view-report .rp-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--s4); }
+#view-report .rp-tile { display: grid; gap: 2px; padding: var(--s3); border: var(--bw) solid var(--edge); border-radius: var(--btn-r); background: var(--paper); }
+#view-report .rp-tile b { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(30px * var(--display-scale)); line-height: 1.1; color: var(--run); }
+#view-report .rp-ranges { display: flex; gap: var(--s1); margin-bottom: var(--s3); }
+#view-report .rp-bars { display: flex; align-items: flex-end; gap: 4px; height: 160px; border-bottom: 1.5px solid var(--line); }
+#view-report .bar { flex: 1; min-width: 3px; background: var(--run); border-radius: 3px 3px 0 0; transition: height .4s cubic-bezier(.2, .7, .2, 1); }
+#view-report .bar.peak { background: var(--wait); }
+#view-report .rp-labels { display: flex; justify-content: space-between; gap: var(--s3); margin-top: var(--s1); color: var(--muted); font-size: 11px; }
+#view-report .rp-note { margin: var(--s3) 0 0; font-size: 12px; }
+#view-report .rp-bought { display: grid; gap: var(--s3); }
+#view-report .rp-eq { display: grid; grid-template-columns: 76px 1fr; gap: var(--s3); align-items: center; padding-bottom: var(--s3); border-bottom: 1px solid var(--line); }
+#view-report .rp-eq:last-child { border-bottom: 0; }
+#view-report .rp-eq b { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(46px * var(--display-scale)); line-height: 1; color: var(--accent); -webkit-text-stroke: 1.5px var(--ink); }
+#view-report .rp-eq small { display: block; color: var(--muted); font-size: 12px; }

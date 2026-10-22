@@ -1,0 +1,14 @@
+{
+  "id": "breaks",
+  "name": "Breaks",
+  "description": "Eye rest (20-20-20), stretch and walk prompts, timed to your agent's waits, with short guided sessions.",
+  "version": "1.0.0",
+  "division": "health",
+  "defaultEnabled": true,
+  "tray": [
+    { "label": "I took an eye break", "method": "POST", "route": "eyes" }
+  ],
+  "cli": [
+    { "name": "break", "method": "POST", "route": "take", "arg": "kind", "print": "{total} of {goal} breaks today", "help": "log a break: eyes, stretch, walk or breathe (default: eyes)" }
+  ]
+}

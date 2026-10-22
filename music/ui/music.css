@@ -1,0 +1,18 @@
+/* Soundscapes screen. Every rule is scoped to #view-music so features never collide. */
+#view-music .mu-scope { display: block; width: 100%; height: 150px; border: var(--bw) solid var(--edge); border-radius: var(--btn-r); background: var(--paper); margin-bottom: var(--s4); }
+#view-music .mu-row { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); flex-wrap: wrap; margin-bottom: var(--s3); }
+#view-music .mu-name { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); letter-spacing: var(--display-ls); font-size: calc(40px * var(--display-scale)); line-height: 1; }
+#view-music .mu-desc { margin: var(--s1) 0 0; color: var(--muted); font-size: 13px; }
+#view-music .mu-unlock { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s3); padding: var(--s3); background: var(--accent); color: #0b0b0b; border: var(--bw) solid var(--ink); border-radius: var(--btn-r); font-size: 13px; }
+#view-music .mu-vol { margin: var(--s3) 0; }
+#view-music .mu-vol input { width: 100%; }
+#view-music .mu-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s3); }
+#view-music .mu-card { display: grid; gap: var(--s1); justify-items: start; padding: var(--s3); text-align: left; cursor: pointer; background: var(--surface); color: var(--ink); border: var(--bw) solid var(--ink); border-radius: var(--card-r); box-shadow: var(--sh-sm); transition: transform .14s, box-shadow .14s, background .14s; }
+#view-music .mu-card:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+:root[data-look='calm'] #view-music .mu-card { border-color: var(--line); }
+:root[data-look='calm'] #view-music .mu-card:hover { transform: translateY(-1px); box-shadow: none; }
+#view-music .mu-card[aria-pressed='true'] { background: #b89cff; color: #0b0b0b; outline: 3px solid var(--ink); outline-offset: 2px; }
+#view-music .mu-card b { font-weight: 500; }
+#view-music .mu-card small { color: inherit; opacity: .75; font-size: 12px; }
+#view-music .mu-ico { display: grid; place-items: center; width: 36px; height: 36px; border: var(--bw) solid var(--ink); border-radius: 50%; background: var(--paper); color: var(--ink); }
+#view-music .mu-ico svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }

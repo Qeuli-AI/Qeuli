@@ -1,0 +1,8 @@
+{
+  "id": "move",
+  "name": "Desk workouts",
+  "description": "Guided routines you can do in your work clothes: a desk reset, a wrist routine, a wake-up and a back reset. With a daily minutes goal and a streak.",
+  "version": "1.0.0",
+  "division": "activity",
+  "defaultEnabled": true
+}

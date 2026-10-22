@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qeuli</title>
+<style>
+  :root { --bg:#fbfaf7; --fg:#1d1d1b; --muted:#6b6b66; --card:#fff; --line:#e6e3dc; --accent:#2f6f5e; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#161715; --fg:#ecebe6; --muted:#9a9a93; --card:#1f201d; --line:#2e302b; --accent:#6fc2a8; }
+  }
+  body { margin:0; padding:16px; background:var(--bg); color:var(--fg); font:14px/1.5 system-ui,sans-serif; }
+  h1 { font-size:16px; margin:0 0 12px; }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:20px 0 8px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin-bottom:8px; }
+  .row { display:flex; justify-content:space-between; gap:8px; align-items:center; }
+  .dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; background:var(--muted); }
+  .running .dot { background:var(--accent); }
+  .waiting .dot { background:#d9822b; }
+  a { color:var(--accent); text-decoration:none; }
+  .muted { color:var(--muted); font-size:12px; }
+  #offline { display:none; }
+</style>
+</head>
+<body>
+<h1>Qeuli</h1>
+<div id="offline" class="card">Daemon not running. Start it with <code>qeuli daemon</code>.</div>
+<div id="today" class="muted"></div>
+<h2>Agents</h2>
+<div id="sessions"></div>
+<h2>Reading queue</h2>
+<div id="queue"></div>
+<script src="panel.js"></script>
+</body>
+</html>

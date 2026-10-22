@@ -1,0 +1,22 @@
+{
+  "name": "qeuli-desktop",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/prepare.mjs && tauri dev",
+    "prepare": "node scripts/prepare.mjs",
+    "build": "node scripts/prepare.mjs && tauri build",
+    "preview": "node scripts/preview.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/dm-mono": "^5.3.0",
+    "@fontsource/gochi-hand": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.0.0",
+    "@fontsource/jetbrains-mono": "^5.0.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "@tauri-apps/cli": "^2.0.0",
+    "esbuild": "^0.28.2"
+  }
+}

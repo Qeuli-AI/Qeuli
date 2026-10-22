@@ -1,0 +1,8 @@
+{
+  "id": "music",
+  "name": "Soundscapes",
+  "description": "Tide, rain, focus tones, lo-fi chords and a night garden, made live on your machine. They can rise when your agent starts and fade when it needs you.",
+  "version": "1.0.0",
+  "division": "music",
+  "defaultEnabled": true
+}

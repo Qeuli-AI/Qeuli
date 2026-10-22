@@ -1,0 +1,23 @@
+/* Small delights screen. Every rule is scoped to #view-fun so features never collide. */
+#view-fun .cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+#view-fun .fn-big { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); letter-spacing: var(--display-ls); font-size: calc(30px * var(--display-scale)); line-height: 1.08; margin: 0 0 var(--s3); min-height: 3.3em; }
+#view-fun .pop { animation: fn-pop .35s cubic-bezier(.3, 1.5, .5, 1); }
+@keyframes fn-pop { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+#view-fun .fn-row { display: flex; gap: var(--s2); flex-wrap: wrap; align-items: center; }
+#view-fun .fn-row input { flex: 1 1 160px; width: auto; }
+#view-fun .fn-result { margin: var(--s3) 0 var(--s1); min-height: 1.6em; }
+#view-fun .fn-result[data-ok='true'] { color: var(--ok); font-weight: 500; }
+#view-fun .fn-result[data-ok='false'] { color: var(--wait); }
+#view-fun .fn-oracle { display: grid; grid-template-columns: 96px 1fr; gap: var(--s4); align-items: center; margin-bottom: var(--s4); }
+#view-fun .fn-bird { width: 96px; color: var(--ink); animation: none; background: #ffd84d; border: var(--bw) solid var(--ink); border-radius: 50%; aspect-ratio: 1; -webkit-mask: none; mask: none; position: relative; display: grid; place-items: center; }
+#view-fun .fn-bird::after { content: ''; width: 72%; aspect-ratio: 1189 / 1031; background: #0b0b0b; -webkit-mask: url(../../brand/hawk.png) center / contain no-repeat; mask: url(../../brand/hawk.png) center / contain no-repeat; }
+#view-fun .fn-bird.shake { animation: fn-shake .65s ease-in-out; }
+@keyframes fn-shake { 0%, 100% { transform: rotate(0); } 15% { transform: rotate(-14deg) translateY(-4px); } 30% { transform: rotate(12deg); } 45% { transform: rotate(-10deg) translateY(-4px); } 60% { transform: rotate(8deg); } 80% { transform: rotate(-4deg); } }
+#view-fun .fn-answer { min-height: 2.2em; }
+#view-fun .fn-luck { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: start; }
+#view-fun .fn-col { display: grid; gap: var(--s3); justify-items: start; }
+#view-fun .fn-coinbtn { padding: 0; background: none; border: 0; cursor: pointer; perspective: 600px; }
+#view-fun .fn-coin { position: relative; width: 96px; height: 96px; transform-style: preserve-3d; transform: rotateY(var(--spin, 0deg)); transition: transform .9s cubic-bezier(.2, .7, .2, 1); }
+#view-fun .fn-coin .face { position: absolute; inset: 0; display: grid; place-items: center; border: var(--bw) solid var(--ink); border-radius: 50%; background: #ffd84d; color: #0b0b0b; font-family: var(--display); font-size: calc(40px * var(--display-scale)); backface-visibility: hidden; }
+#view-fun .fn-coin .back { transform: rotateY(180deg); background: #ff9ec4; }
+#view-fun .fn-die { display: grid; place-items: center; width: 96px; height: 96px; border: var(--bw) solid var(--ink); border-radius: var(--card-r); background: var(--surface); box-shadow: var(--sh-sm); font-family: var(--display); font-weight: var(--display-weight); font-size: calc(48px * var(--display-scale)); }

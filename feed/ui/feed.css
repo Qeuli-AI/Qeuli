@@ -1,0 +1,16 @@
+/* Feed screen. Every rule is scoped to #view-feed so features never collide. */
+#view-feed .fd-bar { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s3); }
+#view-feed .ranges { display: flex; gap: var(--s1); }
+#view-feed .fd-spacer { flex: 1; }
+#view-feed .fd-item { display: grid; grid-template-columns: 34px 1fr auto; gap: var(--s3); align-items: center; padding: var(--s3) 0; border-bottom: 1px solid var(--line); animation: fd-in .3s ease-out both; }
+@keyframes fd-in { from { opacity: 0; transform: translateY(6px); } }
+#view-feed .fd-rank { font-family: var(--display); font-weight: var(--display-weight); font-size: calc(26px * var(--display-scale)); color: var(--muted); text-align: right; }
+#view-feed .fd-title { font-weight: 500; font-size: 15px; text-decoration: none; overflow-wrap: anywhere; }
+#view-feed .fd-title:hover { text-decoration: underline; text-underline-offset: 3px; }
+#view-feed .fd-meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+#view-feed .fd-meta a { color: inherit; }
+#view-feed .fd-error { display: flex; align-items: center; justify-content: space-between; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s3); padding: var(--s3); border: var(--bw) solid var(--ink); border-radius: var(--btn-r); background: var(--wait); color: #fff; }
+#view-feed .fd-skel { height: 44px; margin: var(--s3) 0; border-radius: 6px; background: linear-gradient(90deg, color-mix(in srgb, var(--ink) 8%, transparent), color-mix(in srgb, var(--ink) 16%, transparent), color-mix(in srgb, var(--ink) 8%, transparent)); background-size: 200% 100%; animation: fd-shimmer 1.2s linear infinite; }
+@keyframes fd-shimmer { to { background-position: -200% 0; } }
+#view-feed .fd-note { margin: var(--s4) 0 0; font-size: 12px; }
+@media (max-width: 640px) { #view-feed .fd-item { grid-template-columns: 26px 1fr; } #view-feed .fd-item .btn { grid-column: 2; justify-self: start; } }

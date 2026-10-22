@@ -1,0 +1,8 @@
+{
+  "id": "memory",
+  "name": "Memory",
+  "description": "Pair match, the Chimp test (tap the numbers after they vanish) and Sequence memory (repeat the pattern). Quick ways to stretch your working memory.",
+  "version": "1.0.0",
+  "division": "games",
+  "defaultEnabled": true
+}

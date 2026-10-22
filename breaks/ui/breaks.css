@@ -1,0 +1,77 @@
+/* Breaks screen. Every rule is scoped to #view-breaks so features never collide. */
+#view-breaks .panel { container-type: inline-size; }
+#view-breaks .cols { grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); }
+
+/* the guided-session stage */
+#view-breaks .stage { position: relative; display: grid; place-items: center; height: 270px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg); overflow: hidden; }
+#view-breaks .ring { position: absolute; width: 220px; height: 220px; }
+#view-breaks .ring circle { fill: none; stroke-width: 6; }
+#view-breaks .ring .track { stroke: var(--line); }
+#view-breaks .ring .arc { stroke: var(--run); stroke-linecap: round; }
+#view-breaks .stage.idle .ring .arc { stroke-dashoffset: 0; opacity: .25; }
+#view-breaks .stage.done .ring .arc { stroke: var(--ok); }
+#view-breaks .stage.done .readout { color: var(--ok); }
+#view-breaks .center { position: relative; text-align: center; max-width: 170px; }
+#view-breaks .readout { font-family: var(--display); text-transform: var(--display-tt); font-weight: var(--display-weight); font-style: var(--display-style); font-size: calc(60px * var(--display-scale)); letter-spacing: -.03em; line-height: 1; color: var(--run); }
+#view-breaks .stage.idle .readout { color: var(--muted); font-size: calc(44px * var(--display-scale)); }
+#view-breaks .step { margin-top: var(--s2); color: var(--muted); font-size: 12px; min-height: 2.4em; }
+#view-breaks .stagebtn { position: absolute; right: var(--s2); bottom: var(--s2); }
+
+/* a small scene behind the ring for each kind of break */
+#view-breaks .scene { position: absolute; inset: 0; pointer-events: none; }
+#view-breaks .scene i { position: absolute; left: 50%; top: 50%; width: 150px; height: 150px; margin: -75px 0 0 -75px; border: 1.5px solid var(--run); border-radius: 50%; opacity: .25; }
+#view-breaks .scene.eyes i { animation: far 4s ease-out infinite; }
+#view-breaks .scene.eyes i:nth-child(2) { animation-delay: 1.3s; }
+#view-breaks .scene.eyes i:nth-child(3) { animation-delay: 2.6s; }
+#view-breaks .scene.breathe i { transform: scale(.7); transition: transform 4s ease-in-out; }
+#view-breaks .scene.breathe i:nth-child(1) { opacity: .6; background: color-mix(in srgb, var(--run) 16%, transparent); }
+#view-breaks .scene.breathe i:nth-child(n+2) { display: none; }
+#view-breaks .scene.breathe[data-phase='0'] i:nth-child(1), #view-breaks .scene.breathe[data-phase='1'] i:nth-child(1) { transform: scale(1.5); }
+#view-breaks .scene.stretch i, #view-breaks .scene.walk i { animation: calm 3.2s ease-in-out infinite; }
+#view-breaks .scene.stretch i:nth-child(2), #view-breaks .scene.walk i:nth-child(2) { animation-delay: 1s; }
+#view-breaks .scene.stretch i:nth-child(3), #view-breaks .scene.walk i:nth-child(3) { animation-delay: 2s; }
+@keyframes far { 0% { transform: scale(.55); opacity: .55; } 100% { transform: scale(2.7); opacity: 0; } }
+@keyframes calm { 0%, 100% { transform: scale(.9); opacity: .12; } 50% { transform: scale(1.2); opacity: .32; } }
+
+/* choose a break */
+#view-breaks .kinds { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: var(--s2); margin-top: var(--s2); }
+#view-breaks .kind { display: grid; justify-items: center; gap: 2px; padding: var(--s3) var(--s1); background: none; border: 1px solid var(--line); border-radius: var(--r); color: var(--fg); cursor: pointer; transition: border-color .15s, background .15s, transform .15s; }
+#view-breaks .kind:hover:not(:disabled) { border-color: var(--run); background: color-mix(in srgb, var(--run) 9%, transparent); transform: translateY(-1px); }
+#view-breaks .kind:active:not(:disabled) { transform: translateY(1px); }
+#view-breaks .kind:disabled { opacity: .45; cursor: default; }
+#view-breaks .kind svg, #view-breaks .kname svg, #view-breaks .pk-name svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: var(--run); flex: none; }
+#view-breaks .kind svg { width: 24px; height: 24px; }
+#view-breaks .kind .kn { font-size: 12px; }
+#view-breaks .kind .ks { font-size: 11px; color: var(--muted); }
+
+/* today */
+#view-breaks .bigcount { font-family: var(--display); text-transform: var(--display-tt); font-weight: var(--display-weight); font-style: var(--display-style); font-size: calc(clamp(44px, 7vw, 68px) * var(--display-scale)); letter-spacing: -.025em; line-height: 1; color: var(--run); transition: color .3s; }
+#view-breaks .bigcount[data-reached='true'] { color: var(--ok); }
+#view-breaks .bigcount small { font-family: var(--mono); font-style: normal; font-size: 14px; letter-spacing: 0; color: var(--muted); margin-left: var(--s2); }
+#view-breaks .krow { display: grid; grid-template-columns: minmax(0, 1.3fr) auto auto; gap: var(--s3); align-items: center; padding: var(--s2) 0; border-bottom: 1px solid var(--line); }
+#view-breaks .kname { display: flex; align-items: center; gap: var(--s2); }
+#view-breaks .kname svg { width: 18px; height: 18px; }
+#view-breaks .kcount b { color: var(--fg); font-weight: 600; }
+#view-breaks .kcount, #view-breaks .knext { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+/* last 14 days */
+#view-breaks .minibars { position: relative; display: flex; align-items: flex-end; gap: 3px; height: 76px; border-bottom: 1.5px solid var(--line); }
+#view-breaks .bar { flex: 1; min-width: 3px; background: var(--run); border-radius: 3px 3px 0 0; }
+#view-breaks .bar.met { background: var(--ok); }
+#view-breaks .goalline { position: absolute; left: 0; right: 0; height: 0; border-top: 1.5px dashed var(--fg); opacity: .55; pointer-events: none; }
+#view-breaks .barlabels { display: flex; justify-content: space-between; margin-top: var(--s1); color: var(--muted); font-size: 11px; }
+
+/* log and plan */
+#view-breaks .wl { display: flex; justify-content: space-between; padding: var(--s2) 0; border-bottom: 1px solid var(--line); }
+#view-breaks .wl span:last-child { color: var(--muted); }
+#view-breaks .plan-kind { display: grid; grid-template-columns: minmax(0, 1fr) 110px auto; gap: var(--s3); align-items: end; padding: var(--s3) 0; border-bottom: 1px solid var(--line); }
+#view-breaks .pk-name { display: flex; align-items: center; gap: var(--s3); min-width: 0; }
+#view-breaks .pk-name svg { width: 22px; height: 22px; }
+#view-breaks .pk-name small { display: block; color: var(--muted); font-size: 12px; }
+#view-breaks .plan-kind .toggle { margin-bottom: 6px; }
+
+@container (max-width: 480px) {
+  #view-breaks .stage { height: 250px; }
+  #view-breaks .plan-kind { grid-template-columns: 1fr auto; }
+  #view-breaks .plan-kind .field { grid-column: 1 / -1; grid-row: 2; }
+}

@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Qeuli",
+  "version": "0.1.0",
+  "description": "Use the wait while your AI coding agent works. Shows agent status, your reading queue, and tells you when it needs you.",
+  "permissions": ["sidePanel", "notifications", "contextMenus", "alarms"],
+  "host_permissions": ["http://127.0.0.1:47821/*"],
+  "background": { "service_worker": "background.js", "type": "module" },
+  "side_panel": { "default_path": "panel.html" },
+  "action": { "default_title": "Qeuli" }
+}

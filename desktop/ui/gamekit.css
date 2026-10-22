@@ -1,0 +1,74 @@
+/* The game shelf and window, shared by every game feature. Classes are all prefixed gk- so they cannot
+   collide with a feature's own styles. Colours come from the design tokens, so every font, style and
+   theme applies. A card or window takes its accent from the --game custom property set on it. */
+
+/* ---- the shelf ---- */
+.gk-banner { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s4); padding: var(--s3) var(--s4); background: var(--wait); color: #fff; border: var(--bw) solid var(--ink); border-radius: var(--card-r); box-shadow: var(--sh-sm); animation: gk-pop .35s cubic-bezier(.3, 1.5, .5, 1); }
+.gk-banner[hidden] { display: none; }
+.gk-banner span { flex: 1; font-weight: 500; }
+@keyframes gk-pop { from { opacity: 0; transform: translateY(-8px) scale(.97); } }
+
+.gk-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--s4); }
+.gk-card { display: grid; grid-template-rows: auto 1fr; padding: 0; overflow: hidden; text-align: left; cursor: pointer; background: var(--surface); color: var(--ink); border: var(--bw) solid var(--ink); border-radius: var(--card-r); box-shadow: var(--sh-sm); transition: transform .16s, box-shadow .16s; }
+.gk-card:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink); }
+.gk-card:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--ink); }
+:root[data-look='calm'] .gk-card { border-color: var(--line); }
+:root[data-look='calm'] .gk-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, .12); }
+.gk-cover { position: relative; display: grid; place-items: center; height: 120px; border-bottom: var(--bw) solid var(--ink); color: #0b0b0b; overflow: hidden; background-color: var(--game); background-image: radial-gradient(rgba(0, 0, 0, .13) 1.5px, transparent 1.6px); background-size: 14px 14px; }
+:root[data-look='calm'] .gk-cover { border-bottom-color: var(--line); }
+.gk-cover svg { width: 58px; height: 58px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+.gk-card:hover .gk-cover svg { transform: scale(1.14) rotate(-6deg); }
+.gk-play { position: absolute; right: var(--s3); bottom: var(--s3); padding: 4px 12px; border: var(--bw) solid #0b0b0b; border-radius: 999px; background: #fff; color: #0b0b0b; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; transform: translateY(6px); opacity: 0; transition: transform .16s, opacity .16s; }
+.gk-card:hover .gk-play, .gk-card:focus-visible .gk-play { transform: none; opacity: 1; }
+.gk-info-col { display: grid; gap: var(--s1); align-content: start; padding: var(--s3) var(--s4) var(--s4); }
+.gk-info-col b { font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); font-size: calc(26px * var(--display-scale)); line-height: 1.05; }
+.gk-info-col small { color: var(--muted); font-size: 12px; }
+.gk-best { margin-top: var(--s1); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---- the game window ---- */
+.gk-modal { position: fixed; inset: 0; z-index: 70; display: flex; padding: var(--s4); overflow-y: auto; background: color-mix(in srgb, var(--ink) 55%, transparent); backdrop-filter: blur(3px); animation: gk-fade .18s ease-out; }
+.gk-modal.out { opacity: 0; transition: opacity .15s; pointer-events: none; }
+@keyframes gk-fade { from { opacity: 0; } }
+.gk-mwin { margin: auto; width: min(100%, 780px); max-height: calc(100vh - 2 * var(--s4)); display: flex; flex-direction: column; overflow: hidden; background: var(--paper); color: var(--ink); border: var(--bw) solid var(--ink); border-radius: var(--card-r); box-shadow: 8px 8px 0 var(--ink); outline: none; animation: gk-win .28s cubic-bezier(.3, 1.4, .5, 1); }
+:root[data-look='calm'] .gk-mwin { border-color: var(--line); box-shadow: 0 24px 60px rgba(0, 0, 0, .3); }
+@keyframes gk-win { from { opacity: 0; transform: translateY(16px) scale(.96); } }
+.gk-mhead { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--s3); padding: var(--s3) var(--s4); background: var(--game, var(--accent)); color: #0b0b0b; border-bottom: var(--bw) solid var(--ink); }
+:root[data-look='calm'] .gk-mhead { border-bottom-color: var(--line); }
+.gk-mtitle { margin: 0; font-family: var(--display); font-weight: var(--display-weight); font-style: var(--display-style); text-transform: var(--display-tt); letter-spacing: var(--display-ls); font-size: calc(34px * var(--display-scale)); line-height: 1; }
+.gk-msub { margin-top: 4px; font-size: 12px; opacity: .8; white-space: pre-wrap; }
+.gk-mclose { flex: none; display: grid; place-items: center; width: 34px; height: 34px; padding: 0; cursor: pointer; font-size: 22px; line-height: 1; color: #0b0b0b; background: #fff; border: var(--bw) solid #0b0b0b; border-radius: 50%; transition: transform .14s; }
+.gk-mclose:hover { transform: rotate(90deg); }
+.gk-mbody { padding: var(--s4); overflow-y: auto; }
+
+/* setup screen and the strip above a running game */
+.gk-lede { margin: 0 0 var(--s4); color: var(--muted); max-width: 60ch; }
+.gk-opts { display: grid; gap: var(--s2); }
+.gk-opt { display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; }
+.gk-optlab { flex: none; width: 74px; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.gk-seg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.gk-seg button { padding: 5px 12px; cursor: pointer; font: inherit; font-size: 13px; color: var(--ink); background: var(--surface); border: var(--bw) solid var(--ink); border-radius: 999px; transition: background .12s, transform .12s; }
+:root[data-look='calm'] .gk-seg button { border-color: var(--line); }
+.gk-seg button:hover { transform: translateY(-1px); }
+.gk-seg button[aria-pressed='true'] { background: var(--game, var(--accent)); color: #0b0b0b; border-color: var(--ink); font-weight: 600; }
+.gk-startrow { display: flex; justify-content: flex-end; margin-top: var(--s5); }
+.gk-start { min-width: 200px; background: var(--game, var(--accent)); color: #0b0b0b; }
+.gk-strip { display: flex; align-items: center; gap: var(--s3); margin-bottom: var(--s3); }
+.gk-settings { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+
+/* result bar and confetti */
+.gk-flash { position: relative; display: flex; align-items: center; gap: var(--s3); flex-wrap: wrap; margin-bottom: var(--s3); padding: var(--s2) var(--s3); border: var(--bw) solid var(--ink); border-radius: var(--btn-r); background: var(--paper); animation: gk-pop .35s cubic-bezier(.3, 1.5, .5, 1); }
+.gk-flash[hidden] { display: none; }
+.gk-flash[data-best='true'] { background: #8bd66b; color: #0b0b0b; }
+.gk-flash .btn { flex: none; }
+.gk-resmsg { flex: 1; font-weight: 600; }
+.gk-confetti { position: absolute; left: 24px; top: 50%; width: 0; height: 0; pointer-events: none; }
+.gk-confetti i { position: absolute; width: 8px; height: 12px; border-radius: 2px; animation: gk-conf 1.1s cubic-bezier(.1, .7, .3, 1) forwards; }
+@keyframes gk-conf { from { transform: translate(0, 0) rotate(0); opacity: 1; } to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
+
+/* the line of text a game keeps above its board */
+.gk-info { margin-bottom: var(--s3); color: var(--muted); min-height: 1.6em; white-space: pre; }
+
+@media (max-width: 520px) {
+  .gk-modal { padding: var(--s2); }
+  .gk-optlab { width: 100%; }
+}

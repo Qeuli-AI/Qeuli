@@ -1,0 +1,8 @@
+{
+  "id": "feed",
+  "name": "Feed",
+  "description": "Hacker News top, new and best stories, fetched on your machine. Save any story for a wait with one click.",
+  "version": "1.0.0",
+  "division": "web",
+  "defaultEnabled": true
+}
