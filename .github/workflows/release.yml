@@ -1,0 +1,104 @@
+# Builds the Windows installer and publishes it as a GitHub release.
+#
+# To release: push a version tag (git tag v0.2.0 && git push origin v0.2.0), or run this workflow by hand
+# from the Actions tab and type the version.
+#
+# Who can release: the job only runs for the owner (see the if: below), and it waits on the `release`
+# environment, which should require approval from the owner (Settings -> Environments -> release).
+name: Release
+
+on:
+  push:
+    tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, for example 0.2.0'
+        required: true
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Build and publish the Windows installer
+    runs-on: windows-latest
+    environment: release
+    timeout-minutes: 60
+    if: github.actor == 'namanomar'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out the version
+        id: v
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then VERSION="${{ inputs.version }}"; else VERSION="${GITHUB_REF_NAME#v}"; fi
+          VERSION="${VERSION#v}"
+          echo "$VERSION" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$' || { echo "not a version: $VERSION"; exit 1; }
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            desktop/package-lock.json
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: desktop/src-tauri
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm ci --prefix desktop
+
+      - name: Test
+        run: npm test
+
+      - name: Stamp the version into the app
+        shell: bash
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = 'desktop/src-tauri/tauri.conf.json';
+            const c = JSON.parse(fs.readFileSync(p, 'utf8'));
+            c.version = '${{ steps.v.outputs.version }}';
+            fs.writeFileSync(p, JSON.stringify(c, null, 2) + '\n');
+          "
+
+      - name: Build the installer
+        working-directory: desktop
+        run: npm run build
+
+      - name: Collect the release files
+        id: files
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp desktop/src-tauri/target/release/bundle/nsis/*-setup.exe dist/Qeuli-Setup.exe
+          (cd dist && sha256sum Qeuli-Setup.exe > Qeuli-Setup.exe.sha256 && cat Qeuli-Setup.exe.sha256)
+          ls -l dist
+
+      - name: Publish the release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.v.outputs.tag }}
+        run: |
+          NOTES="Download **Qeuli-Setup.exe** below and run it. The installer is not code-signed yet, so Windows SmartScreen may warn: choose More info, then Run anyway. SHA-256 is in Qeuli-Setup.exe.sha256."
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/Qeuli-Setup.exe dist/Qeuli-Setup.exe.sha256 --clobber
+          else
+            gh release create "$TAG" dist/Qeuli-Setup.exe dist/Qeuli-Setup.exe.sha256 \
+              --target "$GITHUB_SHA" --title "Qeuli $TAG" --notes "$NOTES" --generate-notes
+          fi

@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qeuli: make the wait worth it</title>
+<meta name="description" content="Qeuli is a local wellbeing layer for developers who work with AI coding agents. It notices when your agent is running and gives the waiting time back. Free, open source, Windows.">
+<meta property="og:title" content="Qeuli: make the wait worth it">
+<meta property="og:description" content="A local layer for developers who work with AI coding agents. Everything runs on your machine.">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Concept: a sticker sheet. Flat colour, thick ink outlines, hard shadows, a little tilt, the same as the app. */
+:root {
+  --paper: #fff6e0; --ink: #0b0b0b; --muted: #4a4636; --card: #ffffff;
+  --health: #8bd66b; --prod: #63c8c1; --context: #7fb3ff; --music: #b89cff;
+  --games: #ffd84d; --fun: #ff9ec4; --activity: #ffa463; --web: #5ed6e8; --alert: #ff5a4d;
+  --bw: 3px; --r: 16px; --shadow: 5px 5px 0 var(--ink);
+  --display: 'Bowlby One', 'Arial Black', Impact, sans-serif;
+  --body: 'Space Grotesk', system-ui, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font: 400 18px/1.6 var(--body); color: var(--ink); background: var(--paper);
+  background-image: radial-gradient(rgba(11,11,11,.13) 1.3px, transparent 1.4px); background-size: 24px 24px; }
+::selection { background: var(--games); color: var(--ink); }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+.wrap { width: min(1080px, 100% - 32px); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.02; letter-spacing: -.01em; margin: 0; }
+h2 { font-size: clamp(30px, 5vw, 46px); }
+.eyebrow { font: 500 13px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+section { padding: 72px 0 8px; }
+
+/* buttons and stickers */
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; font: 700 18px var(--body); text-decoration: none; color: var(--ink);
+  background: var(--games); border: var(--bw) solid var(--ink); border-radius: 14px; box-shadow: var(--shadow); cursor: pointer; transition: transform .12s, box-shadow .12s; }
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--ink); }
+.btn:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+.btn.alt { background: var(--card); }
+.btn svg { width: 22px; height: 22px; }
+.sticker { background: var(--card); border: var(--bw) solid var(--ink); border-radius: var(--r); box-shadow: var(--shadow); }
+
+/* nav */
+header { padding: 18px 0; }
+nav { display: flex; align-items: center; gap: 22px; }
+nav .brand { display: flex; align-items: center; gap: 10px; font: 400 26px var(--display); text-decoration: none; margin-right: auto; }
+nav .brand img { width: 40px; height: 40px; }
+nav a.l { font-weight: 500; text-decoration: none; }
+nav a.l:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px; }
+nav .btn { padding: 9px 16px; font-size: 16px; box-shadow: 3px 3px 0 var(--ink); }
+
+/* hero */
+.hero { padding: 40px 0 24px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+.hero h1 { font-size: clamp(56px, 11vw, 132px); color: var(--games); -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill; text-shadow: 6px 6px 0 var(--ink); margin-bottom: 18px; }
+.hero .tag { font: 400 clamp(24px, 3.4vw, 34px)/1.15 var(--display); margin: 0 0 14px; }
+.hero p.lede { max-width: 34em; color: var(--muted); margin: 0 0 26px; }
+.hero .cta { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 14px; }
+.hero small { display: block; color: var(--muted); font-size: 14px; }
+.hawk { justify-self: center; width: min(100%, 360px); transform: rotate(3deg); padding: 22px; background: var(--ink); border: var(--bw) solid var(--ink); border-radius: 36px; box-shadow: 9px 9px 0 var(--games); }
+.hawk img { display: block; width: 100%; height: auto; }
+
+/* demo */
+.demo { padding: 22px; margin-top: 30px; transform: rotate(-.6deg); }
+.demo-top { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; font: 700 16px var(--body); background: var(--paper); border: var(--bw) solid var(--ink); border-radius: 999px; }
+.dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink); background: #bbb; }
+.running .dot { background: var(--alert); animation: pulse 1.2s ease-in-out infinite; }
+.done .dot { background: var(--health); }
+@keyframes pulse { 50% { opacity: .25; } }
+.timer { font: 500 16px var(--mono); }
+.bar { flex: 1; min-width: 120px; height: 14px; border: 2px solid var(--ink); border-radius: 999px; background: var(--paper); overflow: hidden; }
+.bar i { display: block; height: 100%; width: 0; background: var(--prod); transition: width .25s linear; }
+.stage { margin-top: 18px; min-height: 124px; display: grid; }
+.offer { grid-area: 1 / 1; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; padding: 16px 18px; border: var(--bw) solid var(--ink); border-radius: 14px; background: var(--c, var(--card)); opacity: 0; transform: translateY(10px) rotate(-1deg); transition: opacity .3s, transform .3s; pointer-events: none; }
+.offer.on { opacity: 1; transform: none; }
+.offer .ic { width: 52px; height: 52px; display: grid; place-items: center; background: var(--card); border: var(--bw) solid var(--ink); border-radius: 12px; }
+.offer .ic svg { width: 28px; height: 28px; fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.offer b { display: block; font: 400 20px var(--display); }
+.offer span { color: #222; font-size: 16px; }
+.demo-note { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 26px; counter-reset: s; }
+.step { padding: 22px; counter-increment: s; }
+.step:nth-child(2) { transform: rotate(.8deg); } .step:nth-child(3) { transform: rotate(-.8deg); }
+.step::before { content: counter(s); display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 14px; font: 400 22px var(--display); background: var(--c); border: var(--bw) solid var(--ink); border-radius: 50%; }
+.step h3 { font-size: 22px; margin-bottom: 8px; }
+.step p { margin: 0; color: var(--muted); font-size: 16px; }
+
+/* what's inside */
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 26px; }
+.card { padding: 18px; background: var(--c); border: var(--bw) solid var(--ink); border-radius: var(--r); box-shadow: 4px 4px 0 var(--ink); transition: transform .15s; }
+.card:hover { transform: translate(-2px, -3px) rotate(-1deg); }
+.card h3 { font-size: 22px; margin-bottom: 8px; }
+.card p { margin: 0; font-size: 15.5px; line-height: 1.45; color: #1d1d1d; }
+.card ul { margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; font-weight: 500; }
+.card li::before { content: '→ '; }
+
+/* privacy + setup */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: start; margin-top: 26px; }
+.priv { padding: 24px; background: var(--ink); color: var(--paper); border: var(--bw) solid var(--ink); border-radius: var(--r); box-shadow: 5px 5px 0 var(--games); }
+.priv ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.priv li { padding-left: 30px; position: relative; font-size: 16.5px; }
+.priv li::before { content: ''; position: absolute; left: 0; top: .45em; width: 16px; height: 16px; border-radius: 50%; background: var(--health); border: 2px solid var(--paper); }
+.priv b { color: var(--games); }
+.setup { padding: 24px; }
+.setup ol { margin: 0; padding-left: 22px; display: grid; gap: 14px; }
+.setup li::marker { font-weight: 700; }
+code, pre { font-family: var(--mono); font-size: 14px; }
+code { background: var(--paper); border: 2px solid var(--ink); border-radius: 6px; padding: 1px 6px; }
+pre { margin: 8px 0 0; padding: 12px 14px; overflow-x: auto; background: var(--ink); color: var(--paper); border-radius: 10px; }
+.warn { margin-top: 16px; padding: 12px 14px; font-size: 15px; background: var(--games); border: 2px solid var(--ink); border-radius: 10px; }
+
+/* closing */
+.closing { margin: 80px 0 0; padding: 56px 0; background: var(--games); border-block: var(--bw) solid var(--ink); text-align: center; }
+.closing h2 { margin-bottom: 14px; }
+.closing p { margin: 0 0 24px; }
+.closing .btn { background: var(--card); }
+footer { padding: 30px 0 40px; font-size: 15px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: center; }
+footer .sp { margin-right: auto; display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 700; }
+footer img { width: 28px; height: 28px; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; } .hawk { width: 240px; order: -1; justify-self: start; }
+  .grid { grid-template-columns: repeat(2, 1fr); } .two, .steps { grid-template-columns: 1fr; }
+  nav a.l { display: none; }
+}
+@media (max-width: 520px) { .grid { grid-template-columns: 1fr; } body { font-size: 17px; } section { padding-top: 56px; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap" aria-label="Main">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="" width="40" height="40">Qeuli</a>
+    <a class="l" href="#how">How it works</a>
+    <a class="l" href="#inside">What's inside</a>
+    <a class="l" href="#privacy">Privacy</a>
+    <a class="l" href="#setup">Set up</a>
+    <a class="btn" href="https://github.com/Qeuli-AI/Qeuli/releases/latest/download/Qeuli-Setup.exe">Download</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">For people who work with AI coding agents</p>
+      <h1>Qeuli</h1>
+      <p class="tag">Make the wait worth it.</p>
+      <p class="lede">Claude Code, Codex, a long build: you hit enter and wait. Qeuli notices the moment your agent starts, and gives that time back to you. Drink some water, rest your eyes, park the idea you just had. Everything runs on your machine.</p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/Qeuli-AI/Qeuli/releases/latest/download/Qeuli-Setup.exe">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.500-4.500M12 15l4.500-4.500M5 20h14"/></svg>
+          Download for Windows
+        </a>
+        <a class="btn alt" href="https://github.com/Qeuli-AI/Qeuli">View on GitHub</a>
+      </div>
+      <small>Free and open source (MIT). Windows 10 and 11. About 24 MB.</small>
+    </div>
+    <div class="hawk"><img src="assets/hawk.png" alt="The Qeuli hawk, the app's mascot" width="360" height="360"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="sticker demo" id="demo" aria-labelledby="demo-title">
+      <div class="demo-top">
+        <h3 id="demo-title" style="font-size:22px">Try it</h3>
+        <span class="pill" id="state"><i class="dot"></i><span id="label">agent idle</span></span>
+        <span class="timer" id="timer" aria-live="off">0:00</span>
+        <div class="bar" aria-hidden="true"><i id="fill"></i></div>
+        <button class="btn" id="go" type="button" style="padding:9px 18px;font-size:16px;box-shadow:3px 3px 0 var(--ink)">Start an agent</button>
+      </div>
+      <div class="stage" id="stage" aria-live="polite">
+        <div class="offer on" style="--c: var(--card)" data-idle>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/></svg></div>
+          <div><b>Waiting for your agent</b><span>Press the button to see what Qeuli does with a wait.</span></div>
+        </div>
+      </div>
+      <p class="demo-note">A simulation on this page. In the app the suggestions come from your own settings, and nothing leaves your computer.</p>
+    </div>
+  </div>
+
+  <section id="how" class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Your agent starts. Qeuli notices.</h2>
+    <div class="steps">
+      <div class="sticker step" style="--c: var(--context)"><h3>It hears the start</h3><p>Hooks for Claude Code, a notify line for Codex, or <code>qeuli run -- any command</code>. It can also watch a process, like a training job or a build.</p></div>
+      <div class="sticker step" style="--c: var(--health)"><h3>It fills the gap</h3><p>A nudge that fits the wait: water, an eye rest, a parked idea, a stretch, something you saved to read.</p></div>
+      <div class="sticker step" style="--c: var(--prod)"><h3>It tells you when it's done</h3><p>A desktop notification when the agent finishes, plus a plain-English recap of what it did while you were away.</p></div>
+    </div>
+  </section>
+
+  <section id="inside" class="wrap">
+    <p class="eyebrow">What's inside</p>
+    <h2>Eight colours, one calm app.</h2>
+    <div class="grid">
+      <div class="card" style="--c: var(--health)"><h3>Health</h3><p>Water, eyes, posture. Look after the human.</p><ul><li>Water goal from your weight</li><li>20-20-20 eye rest, stretch, breathe</li></ul></div>
+      <div class="card" style="--c: var(--prod)"><h3>Productivity</h3><p>Capture ideas, plan the next prompt, review your waits.</p><ul><li>Parking lot for ideas</li><li>Waiting report with weekly trend</li></ul></div>
+      <div class="card" style="--c: var(--context)"><h3>Context</h3><p>See what your agent is doing, and catch up the moment you are back.</p><ul><li>Live feed of tool use</li><li>Recap of the last run</li></ul></div>
+      <div class="card" style="--c: var(--music)"><h3>Music</h3><p>Soundscapes that rise while your agent works and fade when it is done.</p><ul><li>Rain, tide, lo-fi, focus</li><li>Made live, no downloads</li></ul></div>
+      <div class="card" style="--c: var(--games)"><h3>Games</h3><p>A few quick games sized for a short wait.</p></div>
+      <div class="card" style="--c: var(--fun)"><h3>Fun</h3><p>Small delights: jokes, riddles, luck.</p></div>
+      <div class="card" style="--c: var(--activity)"><h3>Activity</h3><p>Desk workouts and movement streaks.</p></div>
+      <div class="card" style="--c: var(--web)"><h3>Web</h3><p>Your reading queue and the feeds you follow.</p></div>
+    </div>
+    <p style="margin:22px 0 0;color:var(--muted);font-size:16px">Also: your own story, with XP and chapters earned by healthy habits; two looks (Sticker and Calm); four font packs; 14 colour schemes, or match your Cursor / VS Code theme. Every feature is a folder, so you can <a href="https://github.com/Qeuli-AI/Qeuli/blob/main/CONTRIBUTING.md">add your own</a>.</p>
+  </section>
+
+  <section class="wrap" id="privacy">
+    <p class="eyebrow">Privacy and setup</p>
+    <h2>Yours, on your machine.</h2>
+    <div class="two">
+      <div class="priv">
+        <ul>
+          <li><b>Nothing is hosted.</b> No account, no telemetry, no server of ours.</li>
+          <li><b>Labels, not contents.</b> It keeps tool names and short labels, never file contents, full paths, full commands or prompts.</li>
+          <li><b>One file of data.</b> Written atomically, with a rolling backup.</li>
+          <li><b>Closed to websites.</b> The background service listens on loopback only and rejects requests that do not come from the app or the CLI.</li>
+        </ul>
+      </div>
+      <div class="sticker setup" id="setup">
+        <ol>
+          <li><b>Download and run the installer.</b> Open Qeuli from the Start menu; it lives in the tray.</li>
+          <li><b>Connect Claude Code</b> (optional, one command):<pre>qeuli install claude</pre></li>
+          <li><b>Or wrap any command:</b><pre>qeuli run -- npm test</pre></li>
+        </ol>
+        <p class="warn">The installer is not code-signed yet, so Windows SmartScreen may show "unknown publisher". Choose <b>More info</b>, then <b>Run anyway</b>. Each release lists a SHA-256 checksum so you can verify the file.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div class="wrap">
+      <h2>Make the wait worth it.</h2>
+      <p>Free, open source, and yours.</p>
+      <a class="btn" href="https://github.com/Qeuli-AI/Qeuli/releases/latest/download/Qeuli-Setup.exe">Download for Windows</a>
+    </div>
+  </div>
+</main>
+
+<footer class="wrap">
+  <span class="sp"><img src="assets/icon.png" alt="" width="28" height="28">Qeuli</span>
+  <a href="https://github.com/Qeuli-AI/Qeuli">GitHub</a>
+  <a href="https://github.com/Qeuli-AI/Qeuli/releases">Releases</a>
+  <a href="https://github.com/Qeuli-AI/Qeuli/blob/main/CHANGELOG.md">Changelog</a>
+  <a href="https://github.com/Qeuli-AI/Qeuli/blob/main/CONTRIBUTING.md">Contribute</a>
+  <a href="https://github.com/Qeuli-AI/Qeuli/blob/main/LICENSE">MIT license</a>
+</footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var demo = $('demo'), stage = $('stage'), go = $('go'), label = $('label'), timer = $('timer'), fill = $('fill'), state = $('state');
+  var TOTAL = 16, tick = null, step = 0;
+  var OFFERS = [
+    { c: 'var(--health)', t: 'Drink a glass of water', d: '250 ml. About 8 minutes to your goal.', p: '<path d="M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z"/>' },
+    { c: 'var(--context)', t: 'Rest your eyes', d: 'Look at something 20 feet away for 20 seconds.', p: '<path d="M2.5 12S6 5.500 12 5.500 21.500 12 21.500 12 18 18.500 12 18.500 2.500 12 2.500 12z"/><circle cx="12" cy="12" r="3"/>' },
+    { c: 'var(--prod)', t: 'Park that idea', d: '"Cache the token lookups." Saved for after the run.', p: '<path d="M5 12.500l4.500 4.500L19 7.500"/>' },
+    { c: 'var(--activity)', t: 'Roll your shoulders', d: 'Ten slow circles, then stand up for a moment.', p: '<path d="M3 12h3l2.500-6 4 12 2.500-6H21"/>' }
+  ];
+  function fmt(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+  function show(o) {
+    var old = stage.querySelectorAll('.offer'); old.forEach(function (n) { n.classList.remove('on'); setTimeout(function () { n.remove(); }, 350); });
+    var el = document.createElement('div'); el.className = 'offer'; el.style.setProperty('--c', o.c);
+    el.innerHTML = '<div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">' + (o.p || '') + '</svg></div><div><b></b><span></span></div>';
+    el.querySelector('b').textContent = o.t; el.querySelector('span').textContent = o.d;
+    stage.appendChild(el); requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add('on'); }); });
+  }
+  function stop() { clearInterval(tick); tick = null; }
+  function finish() {
+    stop(); demo.classList.remove('running'); demo.classList.add('done'); state.className = 'pill'; label.textContent = 'agent finished';
+    fill.style.width = '100%'; go.disabled = false; go.textContent = 'Run it again';
+    show({ c: 'var(--games)', t: 'Done. Back to work.', d: 'You waited ' + fmt(TOTAL) + ' and did something good for yourself.', p: '<path d="M5 12.500l4.500 4.500L19 7.500"/>' });
+  }
+  go.addEventListener('click', function () {
+    var n = 0; step = 0; demo.classList.remove('done'); demo.classList.add('running');
+    label.textContent = 'agent running'; go.disabled = true; go.textContent = 'Running...';
+    timer.textContent = '0:00'; fill.style.width = '0'; show(OFFERS[0]);
+    tick = setInterval(function () {
+      n++; timer.textContent = fmt(n); fill.style.width = (n / TOTAL * 100) + '%';
+      if (n % 4 === 0 && n < TOTAL) { step = (step + 1) % OFFERS.length; show(OFFERS[step]); }
+      if (n >= TOTAL) finish();
+    }, 1000);
+  });
+})();
+</script>
+</body>
+</html>

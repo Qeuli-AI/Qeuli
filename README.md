@@ -6,14 +6,15 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-0b0b0b?style=for-the-badge)](LICENSE)
 [![Node 20+](https://img.shields.io/badge/node-%E2%89%A520-63c8c1?style=for-the-badge&labelColor=0b0b0b)](package.json)
-[![Windows](https://img.shields.io/badge/desktop-Windows-7fb3ff?style=for-the-badge&labelColor=0b0b0b)](#install)
+[![Windows](https://img.shields.io/badge/desktop-Windows-7fb3ff?style=for-the-badge&labelColor=0b0b0b)](#download)
 [![100% local](https://img.shields.io/badge/data-100%25%20local-8bd66b?style=for-the-badge&labelColor=0b0b0b)](#privacy)
-[![Games](https://img.shields.io/badge/games-7-ffd84d?style=for-the-badge&labelColor=0b0b0b)](#what-it-does)
 
 **A local wellbeing layer for developers who work with AI coding agents.**<br/>
 While your agent thinks, Qeuli looks after you, and gives that time back.
 
-[What it does](#what-it-does) · [What's new](#whats-new) · [Install](#install) · [Roadmap](#roadmap) · [Privacy](#privacy) · [Contribute](CONTRIBUTING.md)
+### [⬇ Download Qeuli for Windows](https://github.com/Qeuli-AI/Qeuli/releases/latest/download/Qeuli-Setup.exe)
+
+[All releases](https://github.com/Qeuli-AI/Qeuli/releases) · [Website](https://qeuli-ai.github.io/Qeuli/) · [What it does](#what-it-does) · [Privacy](#privacy) · [Contribute](CONTRIBUTING.md)
 
 </div>
 
@@ -25,15 +26,28 @@ Claude Code, Codex, a training run, a long build: you hit enter and then you wai
 ten minutes there. It adds up to hours a week, usually spent doomscrolling or just sitting.
 
 Qeuli notices when a run starts and offers something better for exactly that long: drink some water,
-rest your eyes, park the idea you just had, play a round of Snake, read something you saved. When the
-agent finishes, you are told. Nothing is hosted, nothing leaves your machine.
+rest your eyes, park the idea you just had, stretch, read something you saved. When the agent finishes,
+you are told. Nothing is hosted, nothing leaves your machine.
 
 ```
 Claude Code hooks ─┐
-Codex notify  ─────┼─► local daemon (127.0.0.1:47821) ─┬─► Desktop app (Tauri: tray, window)
-qeuli run -- … ┘                                   ├─► MCP server (an agent can call it)
-process watches ───┘                                   └─► Chrome extension (side panel)
+Codex notify  ─────┤
+qeuli run -- … ────┼─► local daemon (127.0.0.1:47821) ─┬─► Desktop app (Tauri: tray, window)
+process watches ───┘                                   ├─► MCP server (an agent can call it)
+                                                       └─► Chrome extension (side panel)
 ```
+
+## Download
+
+**[Qeuli-Setup.exe](https://github.com/Qeuli-AI/Qeuli/releases/latest/download/Qeuli-Setup.exe)**, the
+Windows installer, from the [latest release](https://github.com/Qeuli-AI/Qeuli/releases/latest) (about
+24 MB; the daemon, a Node runtime and the UI are inside). Run it, then open Qeuli from the Start menu. It
+lives in the tray and starts with Windows.
+
+The installer is not code-signed yet, so Windows SmartScreen may say "unknown publisher": choose
+**More info → Run anyway**. Each release lists a SHA-256 checksum next to the file.
+
+To hook up Claude Code, run `qeuli install claude` once (see [Install](#install-the-cli)).
 
 ## What it does
 
@@ -47,9 +61,7 @@ Eight divisions, each with its own colour on the Home screen. Every feature is i
 | | Waiting report | How long you wait on agents, the trend against last week, and what that time could have bought |
 | **Context** | Context | A live feed of what the agent is doing, and a plain-English recap of its last run |
 | **Music** | Soundscapes | Tide, rain, focus, lo-fi, night garden, made live with Web Audio; can follow your agent |
-| **Games** | Arcade | The retro classics: Snake and 2048, with options for board size, speed, walls, rocks and skins |
-| | Typing | A word sprint, or whole passages of prose and code. Speed counts only the letters you got right |
-| | Memory | Pair match, the Chimp test, and Sequence memory, each with a best score per setting |
+| **Games** | Quick games | A few short ones, sized for a wait, with scores kept per setting |
 | **Fun** | Small delights | A dev joke, a daily riddle with a streak, ask the hawk, coin and dice |
 | **Activity** | Desk workouts | Guided no-equipment routines, a daily minutes goal and a streak |
 | **Web** | Feed and reading queue | Hacker News into a queue of reads; one is offered when its length fits your wait |
@@ -62,50 +74,23 @@ and levels unlock chapters. It is all templates, written locally.
 four font packs, 14 colour schemes, and *Match my Cursor / VS Code theme*, which reads installed editor
 themes from disk.
 
-## What's new
-
-> Full history in the [changelog](CHANGELOG.md).
-
-| | |
-| --- | --- |
-| 🧠 **Memory games** | The Chimp test and Sequence memory join Pair match. Best scores are kept for every setting you play. |
-| ⌨️ **Typing, properly** | A word sprint, or long passages of prose and code. Only the letters you got right count toward speed. |
-| 🕹️ **A real games shelf** | Pick a card, a window opens on a setup screen, tune it, hit "Okay, start". Retro classics now live in Arcade. |
-| 📊 **Waiting report** | See how long you wait on agents, how it trends against last week, and what that time could have bought. |
-| 🧭 **Sidebar-only layout** | One calm layout, with a bottom tab bar on narrow windows. |
-
 ## Roadmap
 
-Honest list of what is next, not a promise of dates.
+What is next, not a promise of dates.
 
-- [x] Eight divisions, sticker and calm looks, story and XP
-- [x] Games kit: shelf, setup screen, per-setting best scores
+- [x] Local daemon, desktop app, Claude Code and Codex hooks
 - [x] Waiting report
-- [ ] More retro games for Arcade (Breakout, Tetris)
-- [ ] More Memory tests (visual memory, number memory)
-- [x] Renamed from AgentWell to Qeuli everywhere (command, data folder, docs)
-- [ ] macOS and Linux desktop builds
-- [ ] Signed installer
+- [x] Renamed from AgentWell to Qeuli (command, data folder, docs)
+- [x] One-click release pipeline that publishes the Windows installer
+- [ ] Code-signed installer
+- [ ] macOS and Linux builds
 
-Want one of these? [Pick it up](CONTRIBUTING.md).
+Want one of these? [Pick it up](CONTRIBUTING.md). History is in the [changelog](CHANGELOG.md).
 
-## Install
+## Install the CLI
 
-### The desktop app (Windows)
-
-Build the installer, then run it:
-
-```bash
-cd desktop
-npm install
-npm run build
-```
-
-The installer lands in `desktop/src-tauri/target/release/bundle/nsis/` (about 24 MB: daemon, Node
-runtime, toast helper and UI all included). You need Node 20+, Rust (stable) and the Visual Studio C++
-Build Tools. The app lives in the tray, starts with Windows and runs one daemon.
-
-### Just the CLI and daemon
+The desktop app installs from the [download](#download) above. To work from source, or to use only the CLI
+and daemon:
 
 ```bash
 npm install
@@ -207,8 +192,7 @@ finds the folder by its `feature.json` and hands it a few hooks.
   *.test.js       tests, picked up by npm test
 ```
 
-Create the folder, run `npm run features`, and it appears in the app. The full contract, the game kit and
-a walk-through are in [CONTRIBUTING.md](CONTRIBUTING.md#add-a-feature).
+Create the folder, run `npm run features`, and it appears in the app. The full contract and a walk-through are in [CONTRIBUTING.md](CONTRIBUTING.md#add-a-feature).
 
 **Add-ons without code.** A folder with just a `feature.json` that declares reminders (see
 [`examples/stretch`](examples/stretch)) installs with `qeuli feature install ./folder`. It copies only
@@ -216,7 +200,7 @@ the validated manifest, so installing one cannot run anything on your machine.
 
 ## Contributing
 
-Bug reports, new features, new games and new reminders are welcome. Start with
+Bug reports, new features and new reminders are welcome. Start with
 [CONTRIBUTING.md](CONTRIBUTING.md); it covers setup, the test command, the feature contract and what
 makes a good pull request.
 

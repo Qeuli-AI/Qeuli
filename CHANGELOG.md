@@ -5,27 +5,20 @@ All notable changes to Qeuli. Newest first. Dates are when the change landed.
 ## Unreleased
 
 ### Added
-- **Memory** games: the Chimp test (tap the numbers in order after they vanish) and Sequence memory
-  (repeat a growing pattern, with optional sound), alongside Pair match.
-- **Typing** is its own category: a word sprint, and long-form passages of prose and code. Speed counts
-  only the letters you got right.
-- **Games shelf and popup window.** Every game opens in its own window on a setup screen with options,
-  then "Okay, start". Best scores are kept per option set.
-- **Waiting report**: how much you wait on agents, the trend against last week, and what that time could
-  have bought.
-- A shared **game kit** (`src/scores.js`, `desktop/ui/gamekit.js`) so a new game category is a few small files.
+- **Release pipeline**: pushing a version tag builds the Windows installer and publishes it as a GitHub release.
+- A project website on GitHub Pages.
+- **Waiting report**: how much you wait on agents, the trend against last week, and what that time could have
+  bought.
+- A few quick games, with scores kept per setting.
 - `LICENSE` (MIT), `CONTRIBUTING.md`, this changelog and a new README.
 
 ### Changed
 - **Renamed from AgentWell to Qeuli**: the command is `qeuli`, the app is "Qeuli", environment variables
   start with `QEULI_`. An existing `~/.agentwell` data folder is still used, and `qeuli install claude`
   replaces old AgentWell hooks.
-- **Arcade** is now the retro classics only (Snake and 2048). Typing and Memory moved to their own categories.
 - The sidebar is the only layout (a bottom tab bar on narrow windows); the top bar is gone.
-- Score labels allow longer option sets (64 characters, up to 120 per game), enforced by tests.
 
 ### Fixed
-- Game windows no longer clip at the top.
 - The waiting report chart no longer shows a stray "null" label.
 - Hardened score storage against odd labels such as `__proto__`.
 - Refreshed the shortcut icons so Windows shows the hawk logo.

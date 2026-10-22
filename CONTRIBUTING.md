@@ -1,7 +1,7 @@
 # Contributing to Qeuli
 
 Thanks for helping. Qeuli is small on purpose: a local daemon, a desktop shell, and a set of features
-that are each one folder. Most contributions are a new feature, a new game, or a fix inside one folder.
+that are each one folder. Most contributions are a new feature or a fix inside one folder.
 
 By contributing you agree that your work is released under the [MIT license](LICENSE).
 
@@ -96,25 +96,6 @@ Scope all CSS to `#view-<id>`, and use the design tokens (`--ink`, `--paper`, `-
 `--display`, `--bw`, ...) so your screen follows every font pack, style and colour scheme. A test checks
 that feature CSS is scoped.
 
-### Add a game
-
-Games share a kit, so a new category is a few small files. See `arcade/`, `typing/` and `memory/`.
-
-- **Backend:** `export default gameBackend({ games })` from `src/scores.js`. `games` maps an id to
-  `{ name, better: 'higher' | 'lower', unit }`. It keeps best scores per option set and awards XP.
-- **Screen:** `mountShelf(ctx, { id, label, icon, options, games })` from `desktop/ui/gamekit.js` gives
-  you the shelf of cards, the game window with its setup screen ("Okay, start"), and the result bar.
-- **Each game:** `mount(host, { h, opts, active, end }) → { stop() }`. Call `end(score)` when the round is
-  over; check `active()` before touching the DOM from a timer.
-- **Options:** plain data in `ui/options.js` (see `desktop/ui/gameopts.js` for the shape). Mark an option
-  `cosmetic` if it should not split best scores (a skin, a sound).
-- **Test:** add the folder id to `FEATURES` in `test/gamefeatures.test.js`. It checks that every option
-  has a valid default, that every combination makes a score label the daemon accepts, and that no game
-  offers more combinations than the daemon keeps (`MAX_VARIANTS`).
-
-Put the rules of the game (scoring, board logic) in a plain `rules.js` with no DOM so it can be unit
-tested; the games here do this.
-
 ### Add-ons without code
 
 For a simple reminder you do not need code. A folder with only a `feature.json` that declares reminders
@@ -127,12 +108,12 @@ validated manifest is copied.
 | --- | --- |
 | `src/` | The core: daemon, store, CLI, MCP server, profile and story, scores |
 | `<feature>/` | One folder per feature (see above) |
-| `desktop/ui/` | The app's screens, design system and shared game kit |
+| `desktop/ui/` | The app's screens, design system |
 | `desktop/src-tauri/` | The Tauri shell (tray, autostart, spawns the daemon) |
 | `desktop/scripts/` | `preview.mjs` and the build preparation |
 | `extension/` | The Chrome side panel |
 | `examples/` | Example add-ons |
-| `test/` | Tests for the core and the shared game kit |
+| `test/` | Tests for the core and the features |
 
 ## Pull requests
 
@@ -159,6 +140,6 @@ please do not open a public issue. Contact the maintainer directly instead.
 
 ## Ideas that are welcome
 
-More retro games for Arcade, more Memory tests, more typing passages, desk workouts, reminders,
+Desk workouts, reminders,
 soundscapes, colour schemes, and translations. If you are unsure whether something fits, open an issue
 and ask before you build it.
